@@ -1,25 +1,50 @@
-import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHashHistory, RouteRecordRaw, useRoute } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'home',
-    component: HomeView
+    component: HomeView,
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: '/about',
     name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue'),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path:'/login',
+    name:'login',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Login/LoginView.vue'),
+    meta: {
+      requiresAuth: false
+    }
+  },
+  {
+    path: '/:pathMatch(.*)*', 
+    name: 'NotFound',
+    component: ()=> import(/* webpackChunkName: "NotFound" */ '../views/Error/404View.vue')
   }
 ]
+ 
 
 const router = createRouter({
   history: createWebHashHistory(process.env.BASE_URL),
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  if(to.meta.requiresAuth) {
+    next({name:'login'})
+  }else{
+    next()
+  }
 })
 
 export default router

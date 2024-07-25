@@ -1,8 +1,9 @@
 <template>
-    <div class="mt-[11%] w-full flex flex-col justify-center items-center ">
+    <div class="mt-[4%] w-full flex flex-col justify-center items-center ">
+        <div class="self-start ml-2 mb-2 flex items-center"><v-icon name="md-arrowback-round" color="black" scale="1.2" /><RouterLink :to="{ name: 'login' }" class=" text-slate-600 text-base font-poppins"><h2>Return to Login</h2></RouterLink></div>
         <div class="flex flex-col justify-center items-center font-poppins gap-1 rounded-xl w-11/12 p-1">
+            <h1 class="mb-2 font-medium text-2xl">Create Account</h1>
             <form @submit.prevent class="flex flex-col justify-center items-center font-poppins gap-1 rounded-xl w-11/12 p-1">
-            <h1 class="mb-5 font-medium text-2xl">Create Account</h1>
             <label class="self-start font-medium text-lg" for="email">Email</label>
             <input v-model="email" class="border w-full text-lg text-center h-12 rounded-md focus:outline-none focus:border-[#006EAD] mb-4" type="email" name="email" placeholder="Enter your email" required>
             <label class="self-start font-medium text-lg" for="password">Password</label>

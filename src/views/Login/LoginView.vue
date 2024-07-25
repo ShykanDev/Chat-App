@@ -11,8 +11,8 @@
                 <input v-model="password" class="border w-full text-lg text-center h-12 rounded-md focus:outline-none focus:border-[#006EAD]" type="password" name="password" id="" placeholder="Enter your password"/>
             </div>
             <div class="w-11/12 flex flex-col justify-center mt-2">
-                <div v-if="errorLoginEmail"><h3 class="text-sm text-red-600">Invalid credentials verify your email and password are correct</h3></div>
-                <h3 class="text-sm self-end text-[#006EAD] font-medium cursor-pointer">Forgot your password?</h3>
+                <div v-if="errorLoginEmail" class="flex items-start"><v-icon name="io-alert-circle" scale="1.2" color="#ff6363" animation="ring" speed="normal"/><h3 class="text-sm text-red-600 m-0 p-0">Invalid credentials verify your email and password are correct</h3></div>
+                <h3 class="text-sm self-end text-[#006EAD] font-medium cursor-pointer mt-2">Forgot your password?</h3>
             </div>
             <button @click="loginEmail" class="w-11/12 mt-5 mb-4 p-2 border border-slate-400 text-[#006EAD] bg-transparent rounded-md  focus:outline-none focus:ring-2 focus:ring-blue-400">Login</button>
             <div class="w-11/12 bg-slate-200 mb-4 h-[1px]"></div>
@@ -39,7 +39,7 @@ const loginEmail = async() => {
         console.log(userCredential);
     } catch (error) {
         errorLoginEmail.value = true;
-        console.log("Error while trying to login: "  + error);
+        console.log("Error while trying to login: " + error);
     }
 }
 </script>

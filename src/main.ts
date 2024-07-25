@@ -3,14 +3,11 @@ import App from './App.vue'
 import './registerServiceWorker'
 import router from './router'
 import './assets/index.css'
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+import { OhVueIcon, addIcons } from "oh-vue-icons";
+import { IoAlertCircle  } from "oh-vue-icons/icons";
+addIcons(IoAlertCircle );
 const firebaseConfig = {
   apiKey: "AIzaSyDnpT0NiCoXGWuuC5DPSCO6G11i968Hyk8",
   authDomain: "very-first-project-00.firebaseapp.com",
@@ -20,10 +17,11 @@ const firebaseConfig = {
   appId: "1:408574731413:web:955777af9d161935bee79c",
   measurementId: "G-Y8QZYE3J7J"
 };
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+const appFirebase = initializeApp(firebaseConfig);
+const analytics = getAnalytics(appFirebase);
 
 
-createApp(App).use(router).mount('#app')
+const app = createApp(App);
+app.use(router)
+app.component('v-icon',OhVueIcon)
+app.mount('#app')

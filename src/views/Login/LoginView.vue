@@ -11,7 +11,7 @@
                 <input v-model="password" class="border w-full text-lg text-center h-12 rounded-md focus:outline-none focus:border-[#006EAD]" type="password" name="password" id="" placeholder="Enter your password"/>
             </div>
             <div class="w-11/12 flex flex-col justify-center mt-2">
-                <div v-if="errorLoginEmail" class="flex items-start"><v-icon name="io-alert-circle" scale="1.2" color="#ff6363" animation="ring" speed="normal"/><h3 class="text-sm text-red-600 m-0 p-0">Invalid credentials verify your email and password are correct</h3></div>
+                <ErrorAlert :message-error="msgError" :severity-error="severityError" :error-user-data="incorrectUserData"/>
                 <h3 class="text-sm self-end text-[#006EAD] font-medium cursor-pointer mt-2">Forgot your password?</h3>
             </div>
             <button @click="loginEmail" class="w-11/12 mt-5 mb-4 p-2 border border-slate-400 text-[#006EAD] bg-transparent rounded-md  focus:outline-none focus:ring-2 focus:ring-blue-400">Login</button>
@@ -23,6 +23,7 @@
 </template>
 
 <script lang="ts" setup>
+import ErrorAlert from '@/components/login/ErrorAlert.vue';
 import {getAuth, signInWithEmailAndPassword} from 'firebase/auth'
 import { ref } from 'vue';
 
@@ -31,15 +32,23 @@ const auth = getAuth();
 const email = ref('')
 const password = ref('')
 
-const errorLoginEmail = ref(false)
+const msgError = ref('') // error message that will be shown if the user data is incorrect or missing
+const severityError = ref('') // severity of the error message 
+const incorrectUserData = ref(false) // boolean that will be true if the user data is incorrect or missing
 
-const loginEmail = async() => {
-    try {
-        const userCredential = await signInWithEmailAndPassword(auth,email.value,password.value);
-        console.log(userCredential);
-    } catch (error) {
-        errorLoginEmail.value = true;
-        console.log("Error while trying to login: " + error);
+const loginEmail = async () => {
+    if (!email.value || !password.value) {
+        incorrectUserData.value = true;
+        msgError.value = 'Empty fields detected, make sure you filled required values'
+        return
+    } else {
+        try {
+            const userCredential = await signInWithEmailAndPassword(auth, email.value, password.value);
+            console.log(userCredential);
+        } catch (error) {
+            incorrectUserData.value = true;
+            console.log("Error while trying to login: " + error);
+        }
     }
 }
 </script>

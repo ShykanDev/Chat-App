@@ -1,5 +1,5 @@
 <template>
-    <div class="mt-[11%] w-full flex flex-col justify-center items-center ">
+    <div class="mt-[11%] w-full flex flex-col justify-center items-center sm:mt-[2%]">
         <div class="flex flex-col justify-center items-center font-poppins gap-1 rounded-xl w-11/12 p-1 animate-fade" >
             <h1 class="mb-5 font-medium text-2xl text-[#006EAD]">Login to your account</h1>
             <div class="w-11/12 flex flex-col justify-center mt-4">

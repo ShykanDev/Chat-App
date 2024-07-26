@@ -1,6 +1,6 @@
 <template>
     <div class="">
-        <div v-if="props.errorUserData" class="flex items-start "><v-icon name="io-alert-circle" scale="1.2" :color="currentColor" animation="ring" speed="normal"/><h3 :style="{color:currentColor}" class="text-sm m-0 p-0">{{props.messageError}}</h3></div>
+        <div v-if="props.errorUserData" class="flex items-start "><v-icon name="io-alert-circle" scale="1.2" :color="currentColor" animation="ring" speed="slow" /><h3 :style="{color:currentColor}" class="text-sm m-0 p-0">{{props.messageError}}</h3></div>
     </div>
 </template>
 

@@ -1,14 +1,14 @@
 <template>
     <div class="mt-[11%] w-full flex flex-col justify-center items-center ">
         <div class="flex flex-col justify-center items-center font-poppins gap-1 rounded-xl w-11/12 p-1 animate-fade" >
-            <h1 class="mb-5 font-medium text-2xl">Login to your account</h1>
+            <h1 class="mb-5 font-medium text-2xl text-[#006EAD]">Login to your account</h1>
             <div class="w-11/12 flex flex-col justify-center mt-4">
-                <label class="self-start font-medium text-lg" for="email">Email</label>
-                <input v-model="email" class="border w-full text-lg text-center h-12 rounded-md focus:outline-none focus:border-[#006EAD]" type="email" name="email" placeholder="Enter your name" required title="Enter the email address registered with your account">
+                <label class="self-start font-medium text-lg flex items-center text-sky-800" for="email">Email</label>
+                <input v-model="email" class="border w-full text-lg text-center h-12 border-[#006EAD] rounded-md focus:outline-none focus:border-[#006EAD] placeholder:text-slate-700" type="email" name="email" placeholder="Enter your email" required title="Enter the email address registered with your account">
             </div>
             <div class="w-11/12 flex flex-col justify-center mt-4">
-                <label class="self-start font-medium text-lg" for="password">Password</label>
-                <input v-model="password" class="border w-full text-lg text-center h-12 rounded-md focus:outline-none focus:border-[#006EAD]" type="password" name="password" id="" placeholder="Enter your password"/>
+                <label class="self-start font-medium text-lg flex items-center gap-1 text-sky-800" for="password">Password</label>
+                <input v-model="password" class="border border-[#006EAD] placeholder:text-slate-700 w-full text-lg text-center h-12 rounded-md focus:outline-none focus:border-[#006EAD]" type="password" name="password" id="" placeholder="Enter your password"/>
             </div>
             <div class="w-11/12 flex flex-col justify-center mt-2">
                 <ErrorAlert :message-error="msgError" :severity-error="severityError" :error-user-data="incorrectUserData"/>

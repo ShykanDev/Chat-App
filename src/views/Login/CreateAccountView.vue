@@ -30,7 +30,7 @@ const auth = getAuth();
 const email = ref('')
 const password = ref('')
 const confirmPassword = ref('')
-const errorEmtyValues = ref(false)
+const errorEmptyValues = ref(false)
 const errorPasswordsMismatch = ref(false)
 
 
@@ -38,8 +38,8 @@ const handleCreateAccount = async (): Promise<void> => {
     if (password.value !== confirmPassword.value || password.value === '' || confirmPassword.value === '') {
         errorPasswordsMismatch.value = true;
         return;
-    } else if( email.value === '' || password.value === '' || confirmPassword.value === '') {
-        errorEmtyValues.value = true;
+    } else if( !email.value || !password.value || !confirmPassword.value) {
+        errorEmptyValues.value = true;
         return;
     } else {
         errorPasswordsMismatch.value = false;

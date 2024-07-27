@@ -44,7 +44,7 @@ const severityError = ref('') // severity of the error message
 const incorrectUserData = ref(false) // boolean that will be true if the user data is incorrect or missing
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const waitingForVerification = ref(false)// used to show loading bar while waiting for email verification to be sent
-const emailVerificationSent = ref(false);
+const emailVerificationSent = ref(false); // used to show popup that email verification has been sent
 const handleCreateAccount = async (): Promise<void> => { // Handle account creation and email verification
     if (!email.value || !password.value || !confirmPassword.value) { // Check if all fields are filled
         incorrectUserData.value = true;

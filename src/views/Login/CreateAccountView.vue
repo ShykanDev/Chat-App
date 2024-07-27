@@ -1,9 +1,9 @@
 <template>
     <LoadingBarsFullScreen v-if="waitingForVerification" />
     <PopupSucces v-if="emailVerificationSent" />
-    <div class="mt-[12%] w-full flex flex-col justify-center items-center">
-        <div class="flex flex-col justify-center items-center font-poppins gap-1 rounded-xl w-full  animate-fade">
-            <h1 class="mb-5 font-medium text-2xl text-[#006EAD]">Create Account</h1>
+    <div class="mt-[12%] w-full flex flex-col justify-center items-center md:mt-[2%]">
+        <div class="flex flex-col justify-center items-center font-poppins gap-1 rounded-xl w-full animate-fade md:w-5/12">
+            <h1 class="mb-5 font-medium text-2xl text-[#006EAD] md:text-3xl">Create Account</h1>
             <form @submit.prevent class="flex flex-col justify-center items-center font-poppins gap-1 rounded-xl w-11/12 p-1">
                 <label class="self-start font-medium text-lg flex items-center gap-1 text-sky-800" for="email">Email</label>
                 <input v-model="email" class="border w-full text-lg text-center h-12 border-[#006EAD] rounded-md focus:outline-none focus:border-[#006EAD] placeholder:text-slate-700 mb-5" type="email" name="email" placeholder="Email for your account" required title="Enter the email address registered with your account">

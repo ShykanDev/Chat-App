@@ -11,8 +11,11 @@
 
 <script lang="ts" setup>
 import { RouterLink } from 'vue-router';
-
-
+import { defineProps } from 'vue';
+const props = defineProps({
+    msgError: String,
+    incorrectUserData: Boolean
+})
 
 </script>
 

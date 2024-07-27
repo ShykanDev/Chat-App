@@ -1,7 +1,7 @@
 <template>
     <div class="mt-[11%] w-full flex flex-col justify-center items-center sm:mt-[2%]">
-        <div class="flex flex-col justify-center items-center font-poppins gap-1 rounded-xl w-11/12 p-1 animate-fade" >
-            <h1 class="mb-5 font-medium text-2xl text-[#006EAD]">Login to your account</h1>
+        <div class="flex flex-col justify-center items-center font-poppins gap-1 rounded-xl w-11/12 p-1 animate-fade md:w-5/12" >
+            <h1 class="mb-5 font-medium text-2xl text-[#006EAD] md:text-3xl">Login to your account</h1>
             <div class="w-11/12 flex flex-col justify-center mt-4">
                 <label class="self-start font-medium text-lg flex items-center text-sky-800" for="email">Email</label>
                 <input v-model="email" class="border w-full text-lg text-center h-12 border-[#006EAD] rounded-md focus:outline-none focus:border-[#006EAD] placeholder:text-slate-700" type="email" name="email" placeholder="Enter your email" required title="Enter the email address registered with your account">
@@ -12,7 +12,9 @@
             </div>
             <div class="w-11/12 flex flex-col justify-center mt-2">
                 <ErrorAlert :message-error="msgError" :severity-error="severityError" :error-user-data="incorrectUserData"/>
-                <h3 class="text-sm self-end text-[#006EAD] font-medium cursor-pointer mt-2">Forgot your password?</h3>
+                <RouterLink :to="{name:'forgotPassword'}" class="text-sm self-end text-[#006EAD] font-medium cursor-pointer mt-2">
+                    <h3 class="">Forgot your password?</h3>
+                </RouterLink>
             </div>
             <button @click="loginEmail" class="w-11/12 mt-5 mb-4 p-2 border border-slate-400 text-[#006EAD] bg-transparent rounded-md  focus:outline-none focus:ring-2 focus:ring-blue-400">Login</button>
             <div class="w-11/12 bg-slate-200 mb-4 h-[1px]"></div>
@@ -26,6 +28,7 @@
 import ErrorAlert from '@/components/login/ErrorAlert.vue';
 import {getAuth, signInWithEmailAndPassword} from 'firebase/auth'
 import { ref } from 'vue';
+import { RouterLink } from 'vue-router';
 
 const auth = getAuth();
 

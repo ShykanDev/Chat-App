@@ -37,7 +37,18 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/:pathMatch(.*)*', 
     name: 'NotFound',
-    component: ()=> import(/* webpackChunkName: "NotFound" */ '../views/Error/404View.vue')
+    component: ()=> import(/* webpackChunkName: "NotFound" */ '../views/Error/404View.vue'),
+    meta: {
+      requiresAuth: false
+    }
+  },
+  {
+    path: '/forgot-password',
+    name: 'forgotPassword',
+    component: () => import(/* webpackChunkName: "forgotPassword" */ '../views/Login/ForgotPasswordView.vue'),
+    meta: {
+      requiresAuth: false
+    }
   }
 ]
  

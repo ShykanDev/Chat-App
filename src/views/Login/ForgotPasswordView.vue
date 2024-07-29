@@ -1,11 +1,11 @@
 <template>
     <div class="flex flex-col items-center font-poppins mt-[10%] animate-fade">
             <LoadingBarsFullScreen v-if="waitingForResetLink" />
-            <PopupSucces v-if="resetLinkSent" :msg1="popupSuccessValues.msg1" :msg2="popupSuccessValues.msg2" />
+            <PopupSucces v-if="resetLinkSent" :msg1="popupSuccessValues.msg1" :msg2="popupSuccessValues.msg2"  :icon="popupSuccessValues.icon"/>
             <h2 class="font-medium text-2xl text-[#006EAD]">Reset your password</h2>
             <div class="w-10/12 flex flex-col justify-center gap-1 mt-7">
                 <label class="self-start font-medium text-lg flex items-center gap-1 text-sky-800" for="email" >Enter your email</label>
-                <input v-model="email" class="border w-full text-lg text-center h-12 border-[#006EAD] rounded-md focus:outline-none focus:border-[#006EAD] placeholder:text-slate-700 mb-5" type="text" name="email" id="" placeholder="Type your email" title="A reset link will be sent to this account">
+                <input v-model="email" class="border w-full text-lg text-center h-12 border-[#006EAD] rounded-md focus:outline-none focus:border-[#006EAD] placeholder:text-slate-700 mb-5" id="email" type="text" name="email" placeholder="Type your email" title="A reset link will be sent to this account">
                 <ErrorAlert v-if="incorrectUserData" :message-error="msgError" :severity-error="severityError" :error-user-data="incorrectUserData"/>
             </div>
             <div class="rounded-md w-10/12 flex justify-between items-center pt-4">
@@ -16,7 +16,6 @@
 </template>
 
 <script lang="ts" setup>
-import LoadingBars from '@/components/login/animations/LoadingBars.vue';
 import LoadingBarsFullScreen from '@/components/login/animations/LoadingBarsFullScreen.vue';
 import ErrorAlert from '@/components/login/ErrorAlert.vue';
 import PopupSucces from '@/components/login/popups/PopupSucces.vue';
@@ -34,8 +33,9 @@ const resetLinkSent = ref(false) // used to show a popup saying that the reset l
 
 
 const popupSuccessValues = reactive({
-    msg1:'A reset link has been sent to your email',
+    msg1:'If the email is in our system, you will receive a link to change your password.',
     msg2:'If you do not see it, please check your spam folder',
+    icon:'ri-mail-send-line'
 })
 const auth = getAuth();
 const handleResetPassword = async() => {
@@ -53,7 +53,8 @@ const handleResetPassword = async() => {
         waitingForResetLink.value = true;
         try {
             incorrectUserData.value = false;
-            await sendPasswordResetEmail(auth, email.value)
+            const userCredential = await sendPasswordResetEmail(auth, email.value)
+            console.log(userCredential);
             waitingForResetLink.value = false;
             resetLinkSent.value = true;
         } catch (error) {

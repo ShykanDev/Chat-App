@@ -4,22 +4,22 @@
             <h1 class="mb-5 font-medium text-2xl text-[#006EAD] md:text-3xl">Login to your account</h1>
             <div class="w-11/12 flex flex-col justify-center mt-4">
                 <label class="self-start font-medium text-lg flex items-center text-sky-800" for="email">Email</label>
-                <input v-model="email" class="border w-full text-lg text-center h-12 border-[#006EAD] rounded-md focus:outline-none focus:border-[#006EAD] placeholder:text-slate-700" type="email" name="email" placeholder="Enter your email" required title="Enter the email address registered with your account">
+                <input v-model="email" class="border w-full text-lg text-center h-12 border-[#006EAD] rounded-md focus:outline-none focus:border-[#006EAD] placeholder:text-slate-700" type="email" name="email" id="email" placeholder="Enter your email" required title="Enter the email address registered with your account" autocomplete="off">
             </div>
             <div class="w-11/12 flex flex-col justify-center mt-4">
                 <label class="self-start font-medium text-lg flex items-center gap-1 text-sky-800" for="password">Password</label>
-                <input v-model="password" class="border border-[#006EAD] placeholder:text-slate-700 w-full text-lg text-center h-12 rounded-md focus:outline-none focus:border-[#006EAD]" type="password" name="password" id="" placeholder="Enter your password"/>
+                <input v-model="password" class="border border-[#006EAD] placeholder:text-slate-700 w-full text-lg text-center h-12 rounded-md focus:outline-none focus:border-[#006EAD]" type="password" name="password" id="password" placeholder="Enter your password"/>
             </div>
             <div class="w-11/12 flex flex-col justify-center mt-2">
                 <ErrorAlert :message-error="msgError" :severity-error="severityError" :error-user-data="incorrectUserData"/>
-                <RouterLink :to="{name:'forgotPassword'}" class="text-sm self-end text-[#006EAD] font-medium cursor-pointer mt-2">
+                <RouterLink :to="{name:'forgotPassword'}" class="text-sm self-end text-[#006EAD] font-medium cursor-pointer mt-2"> 
                     <h3 class="">Forgot your password?</h3>
                 </RouterLink>
             </div>
             <button @click="loginEmail" class="w-11/12 mt-5 mb-4 p-2 border border-slate-400 text-[#006EAD] bg-transparent rounded-md  focus:outline-none focus:ring-2 focus:ring-blue-400">Login</button>
             <div class="w-11/12 bg-slate-200 mb-4 h-[1px]"></div>
-            <label class="font-normal text-base mb-2" for="">Don't have an account?</label>
-           <RouterLink to="/create-account"> <button class="w-[200px] bg-[#006EAD] p-2 text-white rounded-md">Create Account</button></RouterLink>
+            <label class="font-normal text-base mb-2" for="create-account">Don't have an account?</label>
+           <RouterLink to="/create-account"> <button class="w-[200px] bg-[#006EAD] p-2 text-white rounded-md" name="create-account" id="create-account">Create Account</button></RouterLink>
         </div>
     </div>
 </template>

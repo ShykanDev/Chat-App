@@ -1,10 +1,10 @@
 <template>
     <LoadingBarsFullScreen v-if="waitingForVerification" />
-    <PopupSucces v-if="emailVerificationSent" />
-    <div class="mt-[12%] w-full flex flex-col justify-center items-center md:mt-[2%]">
-        <div class="flex flex-col justify-center items-center font-poppins gap-1 rounded-xl w-full animate-fade md:w-5/12">
+    <PopupSucces v-if="emailVerificationSent" :btn-msg="popupSuccessValues.btnMsg" :msg1="popupSuccessValues.msg1" :msg2="popupSuccessValues.msg2"/>
+    <div class="mt-[12%] w-full flex flex-col justify-center items-center md:mt-[2%] ">
+        <div class="flex flex-col justify-center items-center  font-poppins gap-1 rounded-xl animate-fade md:w-5/12">
             <h1 class="mb-5 font-medium text-2xl text-[#006EAD] md:text-3xl">Create Account</h1>
-            <form @submit.prevent class="flex flex-col justify-center items-center font-poppins gap-1 rounded-xl w-11/12 p-1">
+            <form @submit.prevent class="flex flex-col justify-center items-center font-poppins gap-1 rounded-xl w-full p-1" autocomplete="off">
                 <label class="self-start font-medium text-lg flex items-center gap-1 text-sky-800" for="email">Email</label>
                 <input v-model="email" class="border w-full text-lg text-center h-12 border-[#006EAD] rounded-md focus:outline-none focus:border-[#006EAD] placeholder:text-slate-700 mb-5" type="email" name="email" placeholder="Email for your account" required title="Enter the email address registered with your account">
                 <label class="self-start font-medium text-lg flex items-center gap-1 text-sky-800" for="password">Password</label>
@@ -32,6 +32,7 @@ import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from '
 import LoadingBarsFullScreen from '@/components/login/animations/LoadingBarsFullScreen.vue';
 import ErrorAlert from '@/components/login/ErrorAlert.vue';
 import PopupSucces from '@/components/login/popups/PopupSucces.vue';
+import { reactive } from 'vue';
 
 const auth = getAuth();
 
@@ -45,6 +46,12 @@ const incorrectUserData = ref(false) // boolean that will be true if the user da
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const waitingForVerification = ref(false)// used to show loading bar while waiting for email verification to be sent
 const emailVerificationSent = ref(false); // used to show popup that email verification has been sent
+
+const popupSuccessValues = reactive({
+    msg1:'Your account has been created. Please check your email to verify your account.',
+    msg2:'If you do not see it, please check your spam folder',
+    btnMsg:'Go to Login',
+})
 const handleCreateAccount = async (): Promise<void> => { // Handle account creation and email verification
     if (!email.value || !password.value || !confirmPassword.value) { // Check if all fields are filled
         incorrectUserData.value = true;

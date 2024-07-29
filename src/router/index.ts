@@ -59,11 +59,16 @@ const router = createRouter({
   routes
 })
 
+const loginPaths = new Set(['createAccount', 'forgotPassword', 'login']); //paths used for login purposes 
+
 router.beforeEach((to, from, next) => {
   const isAuth = UseUserValues().getIsAuth;
-  if(to.meta.requiresAuth && !isAuth) {
+  const requiresAuth = to.meta.requiresAuth;
+  if(requiresAuth && !isAuth) {
     next({name:'login'})
-  }else{
+  }else if (isAuth && loginPaths.has(to.name as string) ){
+    next({name:'home'})
+  } else{
     next()
   }
 })

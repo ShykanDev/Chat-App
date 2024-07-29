@@ -7,7 +7,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        'poppins': ['Poppins', 'sans-serif']
+        'poppins': ['Poppins', 'sans-serif'],
+        'montserrat-alternates': ['Montserrat Alternates', 'sans-serif'],
       },
       screens: {
         'xsm': { 'max': '300px' },

@@ -1,5 +1,6 @@
 <template>
     <div class="mt-[11%] w-full flex flex-col justify-center items-center sm:mt-[2%]">
+        <LoadingBarsFullScreen v-if="waitingSuccessLogin" />
         <div class="flex flex-col justify-center items-center font-poppins gap-1 rounded-xl w-11/12 p-1 animate-fade md:w-5/12" >
             <h1 class="mb-5 font-medium text-2xl text-[#006EAD] md:text-3xl">Login to your account</h1>
             <div class="w-11/12 flex flex-col justify-center mt-4">
@@ -8,7 +9,7 @@
             </div>
             <div class="w-11/12 flex flex-col justify-center mt-4">
                 <label class="self-start font-medium text-lg flex items-center gap-1 text-sky-800" for="password">Password</label>
-                <input v-model="password" class="border border-[#006EAD] placeholder:text-slate-700 w-full text-lg text-center h-12 rounded-md focus:outline-none focus:border-[#006EAD]" type="password" name="password" id="password" placeholder="Enter your password"/>
+                <input @keypress.enter="loginEmail" v-model="password" class="border border-[#006EAD] placeholder:text-slate-700 w-full text-lg text-center h-12 rounded-md focus:outline-none focus:border-[#006EAD]" type="password" name="password" id="password" placeholder="Enter your password"/>
             </div>
             <div class="w-11/12 flex flex-col justify-center mt-2">
                 <ErrorAlert :message-error="msgError" :severity-error="severityError" :error-user-data="incorrectUserData"/>
@@ -25,9 +26,10 @@
 </template>
 
 <script lang="ts" setup>
+import LoadingBarsFullScreen from '@/components/login/animations/LoadingBarsFullScreen.vue';
 import ErrorAlert from '@/components/login/ErrorAlert.vue';
 import { UseUserValues } from '@/store/UserValuesStore';
-import {getAuth, signInWithEmailAndPassword} from 'firebase/auth'
+import {getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import { ref } from 'vue';
 import { RouterLink, useRouter } from 'vue-router';
 
@@ -42,8 +44,8 @@ const msgError = ref('') // error message that will be shown if the user data is
 const severityError = ref('') // severity of the error message 
 const incorrectUserData = ref(false) // boolean that will be true if the user data is incorrect or missing
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
-const loginEmail = async () => {
+const waitingSuccessLogin = ref(false); 
+const loginEmail = async () => {// login function that will be called when the user clicks on the login button
     if (!email.value || !password.value) {
         incorrectUserData.value = true;
         msgError.value = 'Empty fields detected, make sure you filled required values';
@@ -56,26 +58,30 @@ const loginEmail = async () => {
         return;
     } else {
         incorrectUserData.value = false;
+        waitingSuccessLogin.value = true;
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email.value, password.value);
             if(userCredential.user.emailVerified){
                 storeUser.setIsAuth(true);
+                waitingSuccessLogin.value = false;
                 router.push({name:'home'})
             } else if(!userCredential.user.emailVerified) {
                 incorrectUserData.value = true;
-                console.log("User email not verified");
+                incorrectUserData.value = true;
                 msgError.value = 'Your email is not verified, please click on the link sent to your email';
                 severityError.value = 'medium'
-            } 
+                waitingSuccessLogin.value = false;
+            }
         } catch (error) {
             incorrectUserData.value = true;
             severityError.value = 'high';
             ((error as Error).message === 'Firebase: Error (auth/invalid-credential).' ? msgError.value = 'Invalid credentials. Check the email and password and try again' : msgError.value = 'Error while trying to login, try again later, error: ' + error);
             console.log("Error while trying to login: " + error);
-            
+            waitingSuccessLogin.value = false;
         }
     }
 }
+
 </script>
 
 <style scoped>

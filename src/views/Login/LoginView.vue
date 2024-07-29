@@ -26,11 +26,14 @@
 
 <script lang="ts" setup>
 import ErrorAlert from '@/components/login/ErrorAlert.vue';
+import { UseUserValues } from '@/store/UserValuesStore';
 import {getAuth, signInWithEmailAndPassword} from 'firebase/auth'
 import { ref } from 'vue';
-import { RouterLink } from 'vue-router';
+import { RouterLink, useRouter } from 'vue-router';
 
 const auth = getAuth();
+const router = useRouter();
+const storeUser = UseUserValues(); //store to set the isAuth value based on current value
 
 const email = ref('')
 const password = ref('')
@@ -56,7 +59,8 @@ const loginEmail = async () => {
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email.value, password.value);
             if(userCredential.user.emailVerified){
-                console.log("Credentials are valid, access given");
+                storeUser.setIsAuth(true);
+                router.push({name:'home'})
             } else if(!userCredential.user.emailVerified) {
                 incorrectUserData.value = true;
                 console.log("User email not verified");

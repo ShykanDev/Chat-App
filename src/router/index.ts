@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import { UseUserValues } from '@/store/UserValuesStore'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -59,7 +60,8 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if(to.meta.requiresAuth) {
+  const isAuth = UseUserValues().getIsAuth;
+  if(to.meta.requiresAuth && !isAuth) {
     next({name:'login'})
   }else{
     next()

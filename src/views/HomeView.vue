@@ -1,7 +1,10 @@
 <template>
-    <div class="flex items-center flex-col mt-20">
+    <div class="flex items-center flex-col">
       <h1 class="text-2xl font-poppins" >Home Page</h1>
       <ButtonAction @click="logout"  class="self-end mr-4" :btn-msg="btnActionPropsLogout.btnMsg"/>
+      <div class="self-start">
+        <LeftSideBar/>
+      </div>
     </div>
 </template>
 
@@ -12,6 +15,7 @@ import IButtonAction from '@/interfaces/buttons/IButtonAction';
 import { signOut, getAuth } from 'firebase/auth';
 import { UseUserValues } from '@/store/UserValuesStore';
 import { useRouter } from 'vue-router';
+import LeftSideBar from '@/components/chats/LeftSideBar.vue';
 
 const btnActionPropsLogout:IButtonAction = reactive({  btnMsg:'Logout'}) //// button login values (color text message etc)
 

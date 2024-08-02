@@ -22,12 +22,15 @@
             <label class="font-normal text-base mb-2" for="create-account">Don't have an account?</label>
            <RouterLink to="/create-account"> <button class="w-[200px] bg-[#006EAD] p-2 text-white rounded-md" name="create-account" id="create-account">Create Account</button></RouterLink>
         </div>
+        <h2>Testing</h2>
+        <LabelAndInput />
     </div>
 </template>
 
 <script lang="ts" setup>
 import LoadingBarsFullScreen from '@/components/login/animations/LoadingBarsFullScreen.vue';
 import ErrorAlert from '@/components/login/ErrorAlert.vue';
+import LabelAndInput from '@/components/login/LabelAndInput.vue';
 import { UseUserValues } from '@/store/UserValuesStore';
 import {getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import { ref } from 'vue';

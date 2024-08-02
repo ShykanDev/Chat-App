@@ -1,8 +1,8 @@
 <template>
     <div class="flex items-center flex-col">
-      <h1 class="text-2xl font-poppins" >Home Page</h1>
-      <ButtonAction @click="logout"  class="self-end mr-4" :btn-msg="btnActionPropsLogout.btnMsg"/>
-      <div class="self-start">
+      <!-- <h1 class="text-2xl font-poppins" >Home Page</h1>
+      <ButtonAction @click="logout"  class="self-end mr-4" :btn-msg="btnActionPropsLogout.btnMsg"/> -->
+      <div class="self-start w-full">
         <LeftSideBar/>
       </div>
     </div>

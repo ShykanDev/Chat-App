@@ -6,8 +6,8 @@ import './assets/index.css'
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { OhVueIcon, addIcons } from "oh-vue-icons";
-import { IoAlertCircle,MdArrowbackRound,HiSolidLockClosed,MdEmail, MdCheckcircle,RiMailSendLine,MdSearchSharp  } from "oh-vue-icons/icons";
-addIcons(IoAlertCircle,MdArrowbackRound,HiSolidLockClosed,MdEmail, MdCheckcircle,RiMailSendLine,MdSearchSharp );
+import { IoAlertCircle,MdArrowbackRound,HiSolidLockClosed,MdEmail, MdCheckcircle,RiMailSendLine,MdSearchSharp,MdKeyboardarrowleftRound,RiUser3Line,PrSend    } from "oh-vue-icons/icons";
+addIcons(IoAlertCircle,MdArrowbackRound,HiSolidLockClosed,MdEmail, MdCheckcircle,RiMailSendLine,MdSearchSharp,MdKeyboardarrowleftRound,RiUser3Line,PrSend   );
 // firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyDnpT0NiCoXGWuuC5DPSCO6G11i968Hyk8",

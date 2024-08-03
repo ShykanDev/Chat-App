@@ -1,7 +1,8 @@
 <template>
     <div class="cursor-pointer">
-        <div class="rounded-xl flex items-center gap-2 p-1 bg-slate-50 border-b border-t border-b-slate-200 border-t-slate-200 hover:bg-[#8262d9]  hover:text-white text-slate-800">
-                <img class="rounded-full h-14 w-14 " src="https://thispersondoesnotexist.com/" alt="">
+            <div class="flex items-center gap-2 p-1 bg-gray-100 border-t border-b shadow-sm rounded-xl border-b-slate-200 border-t-slate-200 hover:bg-sky-600 hover:text-white text-slate-800">
+                <img class="rounded-full h-14 w-14 " src="https://picsum.photos/64/64" alt="">
+                 <!-- <v-icon name="ri-user-3-line" scale="1.8" /> -->
             <div class="flex flex-col items-start w-full">
                 <h2 class="text-lg font-medium font-poppins">{{ props.name }}</h2>
                 <div>

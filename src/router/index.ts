@@ -52,7 +52,7 @@ const routes: Array<RouteRecordRaw> = [
     }
   },
   {
-    path:'/chat/:name',
+    path:'/chat:name',
     name:'chat',
     component: () => import(/* webpackChunkName: "chat" */ '../views/chats/CurrentChatView.vue')
   }

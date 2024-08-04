@@ -1,10 +1,10 @@
   <template>
-    <div class="w-full bg-white">
+    <div class="w-full bg-slate-50">
         <div class="flex flex-col items-center w-full ">
             <h2 class="mt-3 mb-2 text-2xl font-medium text-slate-600 font-poppins">Chats</h2>
-            <div class="flex items-center w-5/6 gap-2 p-1 mb-1 text-black bg-gray-100 rounded-full h-14 font-poppins "><v-icon name="md-search-sharp" scale="1.5" /><input v-model="searchName"  @input="filterUsers(searchName)" type="text" class="w-full text-lg bg-transparent border-none outline-none placeholder:text-slate-800"  placeholder="Search contact"></div>
+            <div class="flex items-center w-5/6 gap-2 p-1 mb-1 text-black bg-white rounded-full h-11 font-poppins "><v-icon name="md-search-sharp" scale="1.5" /><input v-model="searchName"  @input="filterUsers(searchName)" type="text" class="w-full text-lg bg-transparent border-none outline-none placeholder:text-slate-800"  placeholder="Search contact"></div>
             <div class="flex flex-col items-center w-full gap-2 mt-2">
-                <RouterLink class="w-11/12" :to="{name:'chat', params:{name:user.name}}" v-for="user in usersFiltered" :key="user.name"><ChatCard class="w-full" :name="user.name" :message="user.message"  /></RouterLink>
+                <RouterLink class="w-[98%]" :to="{name:'chat', params:{name:user.name}}" v-for="user in usersFiltered" :key="user.name"><ChatCard class="w-full" :name="user.name" :message="user.message"  /></RouterLink>
             </div>
         </div>
     </div>

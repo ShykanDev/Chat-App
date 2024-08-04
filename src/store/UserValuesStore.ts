@@ -11,8 +11,7 @@ export const UseUserValues = defineStore('UserStore',{
             return this.isAuth;
         }
     },
-    actions:{
-        setIsAuth(isAuth:boolean){
+    actions:{        setIsAuth(isAuth:boolean){
             this.isAuth = isAuth;
         }
     }

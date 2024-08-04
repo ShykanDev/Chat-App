@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col items-center">
+    <div class="flex flex-col items-center overflow-hidden">
       <!-- <h1 class="text-2xl font-poppins" >Home Page</h1>
       <ButtonAction @click="logout"  class="self-end mr-4" :btn-msg="btnActionPropsLogout.btnMsg"/> -->
       <div class="self-start w-full animate-fade-right animate-duration-500">

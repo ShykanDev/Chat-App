@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-emerald-50 animate-fade-left animate-duration-500 h-dvh"> 
+    <div class="overflow-x-hidden animate-fade-left animate-duration-500 h-dvh pattern-dots pattern-sky-200 pattern-bg-slate-100 pattern-size-6 pattern-opacity-80"> 
         <div class="relative flex items-center rounded-b-lg shadow-sm bg-slate-50 text-slate-700 min-h-14">
             <RouterLink :to="{name:'home'}" class="z-10 flex items-center ">
                 <v-icon class="ml-1" name="md-keyboardarrowleft-round" color="#1b98ff" scale="2"  />

@@ -30,10 +30,16 @@ import LoadingBarsFullScreen from '@/components/login/animations/LoadingBarsFull
 import ErrorAlert from '@/components/login/ErrorAlert.vue';
 import { UseUserValues } from '@/store/UserValuesStore';
 import {getAuth, signInWithEmailAndPassword } from 'firebase/auth'
+import { collection, doc, getDoc, getFirestore } from 'firebase/firestore';
 import { ref } from 'vue';
 import { RouterLink, useRouter } from 'vue-router';
 
 const auth = getAuth();
+const db = getFirestore();
+const usersCollections = collection(db, 'users'); // r eference to the users collection (collection is the database)
+
+const userValuesStore = UseUserValues();
+
 const router = useRouter();
 const storeUser = UseUserValues(); //store to set the isAuth value based on current value
 
@@ -43,13 +49,13 @@ const password = ref('')
 const msgError = ref('') // error message that will be shown if the user data is incorrect or missing
 const severityError = ref('') // severity of the error message 
 const incorrectUserData = ref(false) // boolean that will be true if the user data is incorrect or missing
-const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // regular expression to validate email format
 const waitingSuccessLogin = ref(false); 
 const loginEmail = async () => {// login function that will be called when the user clicks on the login button
     if (!email.value || !password.value) {
         incorrectUserData.value = true;
         msgError.value = 'Empty fields detected, make sure you filled required values';
-        severityError.value = 'low'
+        severityError.value = 'low';
         return;
     } else if (!emailRegex.test(email.value)){
         incorrectUserData.value = true;
@@ -64,12 +70,20 @@ const loginEmail = async () => {// login function that will be called when the u
             if(userCredential.user.emailVerified){
                 storeUser.setIsAuth(true);
                 waitingSuccessLogin.value = false;
-                router.push({name:'home'})
+                router.push({name:'home'});
+                console.log(userCredential);
+                userValuesStore.setUserUid(userCredential.user.uid);
+                if (userCredential.user.uid) {
+                    const userDoc = doc(usersCollections, userCredential.user.uid); // reference to the user uid
+                    const userSnap = await getDoc(userDoc);
+                    if (userSnap.exists()) {
+                        console.log("your uid is: " + userCredential.user.uid);
+                    }
+                }
             } else if(!userCredential.user.emailVerified) {
                 incorrectUserData.value = true;
-                incorrectUserData.value = true;
                 msgError.value = 'Your email is not verified, please click on the link sent to your email';
-                severityError.value = 'medium'
+                severityError.value = 'medium';
                 waitingSuccessLogin.value = false;
             }
         } catch (error) {

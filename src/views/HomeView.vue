@@ -9,13 +9,14 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive } from 'vue';
+import { onMounted, reactive } from 'vue';
 import ButtonAction from './Login/buttons/ButtonAction.vue';
 import IButtonAction from '@/interfaces/buttons/IButtonAction';
 import { signOut, getAuth } from 'firebase/auth';
 import { UseUserValues } from '@/store/UserValuesStore';
 import { useRouter } from 'vue-router';
 import LeftSideBar from '@/components/chats/LeftSideBar.vue';
+import { LaGalacticRepublic } from 'oh-vue-icons/icons';
 
 const btnActionPropsLogout:IButtonAction = reactive({  btnMsg:'Logout'}) //// button login values (color text message etc)
 
@@ -33,6 +34,11 @@ const logout =async() => {
     console.log(`Error while trying to signOut: ${(error as Error).message}`);
    }
 }
+
+onMounted(() => {
+  console.log(`Your id is ${UseUserValues().getUserUid} `);
+  
+})
 </script>
 
 <style scoped>

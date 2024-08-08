@@ -55,6 +55,12 @@ const routes: Array<RouteRecordRaw> = [
     path:'/chat:name',
     name:'chat',
     component: () => import(/* webpackChunkName: "chat" */ '../views/chats/CurrentChatView.vue')
+  },
+  // tempfirestore 
+  {
+    path: '/tempfirestore',
+    name: 'tempfirestore',
+    component: () => import(/* webpackChunkName: "tempfirestore" */ '../views/temp/TempFirestore.vue')
   }
 ]
  

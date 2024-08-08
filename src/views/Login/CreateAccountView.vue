@@ -31,14 +31,16 @@
 
 import { ref } from 'vue';
 import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth'
-import { collection, doc, getFirestore, setDoc } from 'firebase/firestore';
+import {addDoc, collection, getFirestore} from 'firebase/firestore';
 import LoadingBarsFullScreen from '@/components/login/animations/LoadingBarsFullScreen.vue';
 import ErrorAlert from '@/components/login/ErrorAlert.vue';
 import PopupSucces from '@/components/login/popups/PopupSucces.vue';
 import { reactive } from 'vue';
 
 const auth = getAuth()
+
 const db = getFirestore();
+const userCollections = collection(db,'users');
 
 const name = ref('')
 const email = ref('')
@@ -90,13 +92,11 @@ const handleCreateAccount = async (): Promise<void> => { // Handle account creat
             await sendEmailVerification(user);
             waitingForVerification.value = false;
             emailVerificationSent.value = true;
-            // adding user values to firestore
-            const usersCollection = collection(db, 'users'); 
-            await setDoc(doc(usersCollection, user.uid), {
-                name: name.value,
-                email: email.value,
-                id: user.uid,
-            });
+            await addDoc(userCollections,{ 
+                email:email.value,
+                name:name.value,
+                id:user.uid 
+            })
         } catch (error) {
             waitingForVerification.value = false;
             if ((error as Error).message === 'Firebase: Error (auth/email-already-in-use).') {

@@ -4,6 +4,7 @@ import './registerServiceWorker'
 import router from './router'
 import './assets/index.css'
 import { initializeApp } from "firebase/app";
+import { getDatabase } from "firebase/database";
 import { getAnalytics } from "firebase/analytics";
 import { OhVueIcon, addIcons } from "oh-vue-icons";
 import { IoAlertCircle,MdArrowbackRound,HiSolidLockClosed,MdEmail, MdCheckcircle,RiMailSendLine,MdSearchSharp,MdKeyboardarrowleftRound,RiUser3Line,PrSend    } from "oh-vue-icons/icons";
@@ -16,10 +17,13 @@ const firebaseConfig = {
   storageBucket: "very-first-project-00.appspot.com",
   messagingSenderId: "408574731413",
   appId: "1:408574731413:web:955777af9d161935bee79c",
-  measurementId: "G-Y8QZYE3J7J"
+  measurementId: "G-Y8QZYE3J7J",
+  databaseURL: "https://very-first-project-00-default-rtdb.firebaseio.com/"
 };
 const appFirebase = initializeApp(firebaseConfig);
 const analytics = getAnalytics(appFirebase);
+const database = getDatabase(appFirebase);
+export {database}
 // pinia config
 import { createPinia } from 'pinia'
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'

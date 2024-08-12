@@ -16,7 +16,7 @@
                 </li>
             </ul>
             <div class="fixed flex items-center justify-around w-full bottom-1">
-                <input class="w-11/12 h-12 p-3 text-lg text-left bg-white rounded-full outline-none font font-poppins" type="text" placeholder="Message">
+                <input class="w-11/12 h-12 p-3 text-lg text-left bg-white rounded-full shadow-lg outline-none font font-poppins" type="text" placeholder="Message">
                 <v-icon name="pr-send" scale="2.3" color="#0369A1"/>
             </div>
         </section>

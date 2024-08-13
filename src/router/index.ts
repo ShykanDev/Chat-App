@@ -55,7 +55,6 @@ const routes: Array<RouteRecordRaw> = [
     path:'/chat/:recipientName',
     name:'chat',
     component: () => import(/* webpackChunkName: "chat" */ '../views/chats/CurrentChatView.vue'),
-    props: route => ({currentUserId: route.query.currentUserId, recipientName:route.query.recipientName})
   },
   // tempfirestore 
   {

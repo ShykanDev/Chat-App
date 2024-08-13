@@ -9,9 +9,8 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, reactive } from 'vue';
+import { reactive } from 'vue';
 import ButtonAction from './Login/buttons/ButtonAction.vue';
-
 import IButtonAction from '@/interfaces/buttons/IButtonAction';
 import { signOut, getAuth } from 'firebase/auth';
 import { UseUserValues } from '@/store/UserValuesStore';
@@ -24,8 +23,10 @@ const auth = getAuth();
 
 const storeUserValues = UseUserValues();
 
+
+
 const router = useRouter();
-const logout =async() => {
+const logout =async() => { // handle logout
    try {
     await signOut(auth)
     storeUserValues.setIsAuth(false)
@@ -35,10 +36,7 @@ const logout =async() => {
    }
 }
 
-onMounted(() => {
-  console.log(`Your id is ${UseUserValues().getUserUid} `);
-  
-})
+
 </script>
 
 <style scoped>

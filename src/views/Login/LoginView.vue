@@ -30,7 +30,8 @@ import LoadingBarsFullScreen from '@/components/login/animations/LoadingBarsFull
 import ErrorAlert from '@/components/login/ErrorAlert.vue';
 import { UseUserValues } from '@/store/UserValuesStore';
 import {getAuth, signInWithEmailAndPassword } from 'firebase/auth'
-import { collection, doc, getDoc, getFirestore } from 'firebase/firestore';
+import { collection, getDocs, getFirestore, query, where } from 'firebase/firestore';
+import { onMounted } from 'vue';
 import { ref } from 'vue';
 import { RouterLink, useRouter } from 'vue-router';
 
@@ -52,7 +53,7 @@ const incorrectUserData = ref(false) // boolean that will be true if the user da
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // regular expression to validate email format
 const waitingSuccessLogin = ref(false); 
 const loginEmail = async () => {// login function that will be called when the user clicks on the login button
-    if (!email.value || !password.value) {
+    if (!email.value || !password.value) { // check if the email and password fields are empty 
         incorrectUserData.value = true;
         msgError.value = 'Empty fields detected, make sure you filled required values';
         severityError.value = 'low';
@@ -67,18 +68,18 @@ const loginEmail = async () => {// login function that will be called when the u
         waitingSuccessLogin.value = true;
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email.value, password.value);
-            if(userCredential.user.emailVerified){
+            if(userCredential.user.emailVerified){ // if the email is verified we set the isAuth to true and redirect to the home page
                 storeUser.setIsAuth(true);
                 waitingSuccessLogin.value = false;
                 router.push({name:'home'});
                 userValuesStore.setUserUid(userCredential.user.uid);
-                console.log(userCredential);
-                if (userCredential.user.uid) {
-                    const userDoc = doc(usersCollections, userCredential.user.uid); // reference to the user uid
-                    const userSnap = await getDoc(userDoc);
-                    if (userSnap.exists()) {
-                        console.log("your uid is: " + userSnap.data());
-                    }
+                console.log(userCredential); 
+                if (UseUserValues().getIsAuth) { // adding the current name to store
+                    const q_getName = query(usersCollections, where('email', '==', auth.currentUser?.email));
+                    const nameSnaphot = await getDocs(q_getName);
+                    console.log(nameSnaphot.docs[0].data())
+                    UseUserValues().setUserName(nameSnaphot.docs[0].data().name);
+                    UseUserValues().setUserEmail(email.value);
                 }
             } else if(!userCredential.user.emailVerified) {
                 incorrectUserData.value = true;
@@ -96,6 +97,12 @@ const loginEmail = async () => {// login function that will be called when the u
     }
 }
 
+
+onMounted(async () => {
+  console.log("Component Login View Mounted")
+ 
+  
+})
 </script>
 
 <style scoped>

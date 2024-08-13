@@ -5,7 +5,9 @@ export const UseUserValues = defineStore('UserStore',{
         return{
             isAuth:false,       
             userUid:'',
-            userName:''
+            userName:'',
+            userEmail:'',
+            
         }
     },
     getters:{
@@ -17,6 +19,9 @@ export const UseUserValues = defineStore('UserStore',{
         },
         getUserName():string{
             return this.userName;
+        },
+        getUserEmail():string{
+            return this.userEmail;
         }
     },
     actions:{        
@@ -28,6 +33,9 @@ export const UseUserValues = defineStore('UserStore',{
         },
         setUserName(userName:string){
             this.userName = userName;
+        },
+        setUserEmail(userEmail:string){
+            this.userEmail = userEmail;
         }   
     }
 })

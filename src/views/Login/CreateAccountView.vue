@@ -36,6 +36,7 @@ import LoadingBarsFullScreen from '@/components/login/animations/LoadingBarsFull
 import ErrorAlert from '@/components/login/ErrorAlert.vue';
 import PopupSucces from '@/components/login/popups/PopupSucces.vue';
 import { reactive } from 'vue';
+import { UseUserValues } from '@/store/UserValuesStore';
 
 const auth = getAuth()
 
@@ -96,7 +97,7 @@ const handleCreateAccount = async (): Promise<void> => { // Handle account creat
                 email:email.value,
                 name:name.value,
                 id:user.uid 
-            })
+            });
         } catch (error) {
             waitingForVerification.value = false;
             if ((error as Error).message === 'Firebase: Error (auth/email-already-in-use).') {

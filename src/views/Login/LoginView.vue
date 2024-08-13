@@ -71,13 +71,13 @@ const loginEmail = async () => {// login function that will be called when the u
                 storeUser.setIsAuth(true);
                 waitingSuccessLogin.value = false;
                 router.push({name:'home'});
-                console.log(userCredential);
                 userValuesStore.setUserUid(userCredential.user.uid);
+                console.log(userCredential);
                 if (userCredential.user.uid) {
                     const userDoc = doc(usersCollections, userCredential.user.uid); // reference to the user uid
                     const userSnap = await getDoc(userDoc);
                     if (userSnap.exists()) {
-                        console.log("your uid is: " + userCredential.user.uid);
+                        console.log("your uid is: " + userSnap.data());
                     }
                 }
             } else if(!userCredential.user.emailVerified) {

@@ -2,10 +2,7 @@
     <div class="w-full bg-slate-50">
         <div class="flex flex-col items-center w-full gap-1">
             <div class="relative flex items-center justify-center w-full">
-                <!-- <h2 class="mt-3 mb-2 text-2xl font-medium text-slate-600 font-poppins">Chats</h2> -->
-                <h2 class="mt-3 mb-2 text-2xl font-medium text-slate-600 font-poppins">{{ UseUserValues().getUserName }}</h2>
-                <br>
-                 <h2 class="mt-3 mb-2 text-2xl font-medium text-slate-600 font-poppins"> {{ UseUserValues().getUserUid }}</h2>
+                <h2 class="mt-3 mb-2 text-2xl font-medium text-slate-600 font-poppins">Chats</h2>
                 <Transition>
                     <v-icon v-if="users.length < 1" class="absolute right-2" name="ri-loader-4-fill" scale="1.3" color="#3B82F6" animation="spin" speed="normal" />    
                 </Transition>
@@ -88,8 +85,8 @@ const handleNewUser = async () => {
                     contactName:recipientName.value,
                     userId:userId
                 })
-                router.push({ name: `chat`, params: { name: recipientName.value } })
-                } else{
+                router.push({ name: 'chat', params: { name: recipientName.value } })// it isnt working
+                } else if(!querySnapshotContactId.empty) {
                     alert(`Contact with Id: ${recipientName.value} already exists!`)
                     return
                 }

@@ -1,36 +1,29 @@
   <template>
     <div class="w-full pb-5 bg-white">
         <div class="flex flex-col items-center w-full gap-1">
-            <div class="relative flex items-center justify-center w-full">
-                <div class="flex w-full ml-4">
+            <div class="relative flex items-center justify-center w-full px-2">
+                <div class="flex justify-between w-full ml-4">
                     <h2 class="self-start mt-3 mb-2 text-2xl font-medium text-slate-800 font-poppins">Chats</h2>
+                    <h2 class="self-start mt-3 mb-2 text-basfont-medium text-slate-800 font-poppins animate-fade-down">Hi, {{ UseUserValues().getUserName }}!</h2>
                 </div>
-                <Transition>
-                    <v-icon v-if="users.length < 1" class="absolute right-2" name="ri-loader-4-fill" scale="1.3"
-                        color="#3B82F6" animation="spin" speed="normal" />
-                </Transition>
             </div>
-            <div class="flex items-center w-full justify-evenly">
-                <RouterLink :to="{name:'addContact'}">
-                    <v-icon name="fa-user-plus" scale="1.8" color="#219AFF" />
-                </RouterLink>
+            <div class="flex items-center w-full justify-evenly animate-fade-right">
+                    <RouterLink :to="{name:'addContact'}">
+                        <v-icon name="fa-user-plus" scale="1.8" color="#219AFF" />
+                    </RouterLink>
                 <div class="w-[60%] flex items-center gap-2 p-1 mb-1 text-black rounded-full shadow-md h-11 font-poppins">
                     <v-icon name="md-search-sharp" scale="1.5" />
                     <input v-model="searchName" type="text"
                         class="w-full text-lg bg-transparent border-none outline-none placeholder:text-slate-800"
                         placeholder="Search contact">
                 </div>
-                <v-icon name="md-settings-round" scale="1.5" color="#219AFF" />
-            </div>
-            <div class="flex items-center text-black rounded-full shadow-md bg-slate-50 h-11 font-poppins">
-                <input v-model="recipientName" type="text"
-                    class="box-border w-full p-2 text-lg bg-transparent border-none outline-none placeholder:text-slate-800"
-                    placeholder="Add new contact by ID">
-                <button @click="handleNewUser"
-                    class="px-1 py-1 mr-2 text-white bg-blue-500 rounded-md shadow-md hover:bg-blue-600">Add</button>
+                <div class="relative flex">
+                    <v-icon name="la-user-friends-solid" scale="1.8" color="#219AFF" />
+                    <div class="absolute top-0 right-0 flex items-center justify-center w-4 h-4 text-white rounded-lg bg-sky-800">1</div>
+                </div>
             </div>
             <Transition>
-                <div v-if="users.length > 0" class="flex flex-col items-center w-full gap-2 my-2">
+                <div v-if="users.length > 0" class="flex flex-col items-center w-full gap-2 my-2 animate-fade-right">
                     <RouterLink class="w-full" :to="{name:'chat', params:{ recipientName:user.contactName }}"
                         v-for="user in users" :key="user.contactChatId">
                         <ChatCard class="w-full" :name="user.contactName" :message="user.message" />
@@ -44,9 +37,8 @@
 <script lang="ts" setup>
 import { RouterLink } from 'vue-router';
 import ChatCard from './ChatCard.vue';
-import { onMounted, Ref, ref } from 'vue';
-import router from '@/router';
-import { addDoc, collection, getDocs, getFirestore, query, Timestamp, where } from 'firebase/firestore';
+import { onMounted, onUnmounted, Ref, ref } from 'vue';
+import { collection, getDocs, getFirestore, query, where, onSnapshot } from 'firebase/firestore';
 import { UseUserValues } from '@/store/UserValuesStore';
 import Imessage from '@/interfaces/contactsChats/Imessage';
 const users:Ref<Array<Imessage>> = ref([
@@ -69,51 +61,9 @@ const getUsersIdSorted = (id1: string, id2: string) => [id1, id2].sort().join('-
 
 //Firebase stuff
 const db = getFirestore();
-const usersCollection = collection(db, 'users');
-const chatsCollection = collection(db, 'messages');
+const friendRequestCollection = collection(db, 'friendRequest');
 const userContactsCollection =  collection(db, 'userContacts');
 
-
-const handleNewUser = async () => {
-    const recipientIdResponse = ref('')
-    const q_name = query(usersCollection, where('name', '==', recipientName.value));
-    const q_recipientId = query(usersCollection, where('name','==', recipientName.value));
-    try {
-        const querySnapshot = await getDocs(q_name);
-        if (!querySnapshot.empty && recipientName.value) { // If user exists will add contact 
-            alert(`User with Id: ${recipientName.value} is valid!`)
-            const recipientId = (await getDocs(q_recipientId));
-            recipientId.forEach(doc => recipientIdResponse.value = doc.data().id)
-            await addDoc(chatsCollection, { // adding first message
-                chatId: getUsersIdSorted(userId, recipientIdResponse.value),
-                recipientId: recipientIdResponse.value,
-                recipientName:recipientName.value,
-                senderId: userId,
-                senderName: UseUserValues().getUserName,
-                timestamp: Timestamp.now(),
-            })
-            // Verify if contact exists (to avoid duplicates)
-            const q_contactChatId = query(userContactsCollection, where('contactChatId', '==', getUsersIdSorted(userId, recipientName.value)));
-            const querySnapshotContactId = await getDocs(q_contactChatId);
-            if (querySnapshotContactId.empty) {
-                await addDoc(userContactsCollection,{
-                    contactChatId:getUsersIdSorted(userId, recipientIdResponse.value),
-                    contactName:recipientName.value,
-                    userId:userId
-                })
-                fetchContacts();
-                router.push({name:'chat', params:{ recipientName:recipientName.value }})
-                } else if(!querySnapshotContactId.empty) {
-                    alert(`Contact with Id: ${recipientName.value} already exists!`)
-                    return
-                }
-        } else {
-            alert(`User with Id: ${recipientName.value} does not exist!`)
-        }
-    } catch (error) {
-        console.log(error);
-    }
-}
 
 const fetchContacts = async () => {
     try {
@@ -138,10 +88,20 @@ const fetchContacts = async () => {
     }
 };
 
-// Obtener contactos cuando el componente se monta
+const q_friendRequest = query(friendRequestCollection, where('toId', '==', UseUserValues().getUserUid));
+let unsucribeFriendRequest: ()=>void ;
+   unsucribeFriendRequest = onSnapshot(q_friendRequest, (querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            console.log(doc.data());
+        })
+    });
+
 onMounted(() => {
     fetchContacts();
 });
+onUnmounted(()=>{
+    unsucribeFriendRequest();
+})
 </script>
 
 <style scoped>

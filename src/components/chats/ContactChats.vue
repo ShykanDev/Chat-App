@@ -7,7 +7,7 @@
                     <v-icon v-if="users.length < 1" class="absolute right-2" name="ri-loader-4-fill" scale="1.3" color="#3B82F6" animation="spin" speed="normal" />    
                 </Transition>
             </div>
-            <div class="flex items-center w-5/6 gap-2 p-1 mb-1 text-black bg-white rounded-full h-11 font-poppins ">
+            <div class="flex items-center w-5/6 gap-2 p-1 mb-1 text-black bg-white rounded-full shadow-sm h-11 font-poppins">
                 <v-icon name="md-search-sharp" scale="1.5" />
                 <input v-model="searchName"  type="text" class="w-full text-lg bg-transparent border-none outline-none placeholder:text-slate-800"  placeholder="Search contact">
             </div>
@@ -17,7 +17,7 @@
             </div>
             <Transition>
             <div v-if="users.length > 0" class="flex flex-col items-center w-full gap-2 mt-2">
-                    <RouterLink class="w-[98%]"  :to="{name:'chat', params:{ recipientName:user.contactName }, query:{currentUserId:userId, recipientName:user.contactName}}" v-for="user in users" :key="user.contactChatId"><ChatCard class="w-full" :name="user.contactName" :message="user.message"/></RouterLink>
+                    <RouterLink class="w-[98%]"  :to="{name:'chat', params:{ recipientName:user.contactName }}" v-for="user in users" :key="user.contactChatId"><ChatCard class="w-full" :name="user.contactName" :message="user.message"/></RouterLink>
                 </div>
             </Transition>
         </div>
@@ -75,7 +75,6 @@ const handleNewUser = async () => {
                 senderName: UseUserValues().getUserName,
                 timestamp: Timestamp.now(),
             })
-            
             // Verify if contact exists (to avoid duplicates)
             const q_contactChatId = query(userContactsCollection, where('contactChatId', '==', getUsersIdSorted(userId, recipientName.value)));
             const querySnapshotContactId = await getDocs(q_contactChatId);
@@ -85,7 +84,8 @@ const handleNewUser = async () => {
                     contactName:recipientName.value,
                     userId:userId
                 })
-                router.push({ name: 'chat', params: { name: recipientName.value } })// it isnt working
+                fetchContacts();
+                router.push({name:'chat', params:{ recipientName:recipientName.value }})
                 } else if(!querySnapshotContactId.empty) {
                     alert(`Contact with Id: ${recipientName.value} already exists!`)
                     return

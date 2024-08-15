@@ -1,5 +1,5 @@
 <template>
-    <div class="pt-[57px] overflow-x-hidden animate-fade-left animate-duration-500 h-dvh pattern-dots pattern-sky-200 pattern-bg-slate-100 pattern-size-6 pattern-opacity-80"> 
+    <div class="pt-[57px]  overflow-x-hidden animate-fade-left animate-duration-500 h-dvh pattern-dots pattern-sky-200 pattern-bg-slate-100 pattern-size-6 pattern-opacity-80"> 
         <div class="fixed top-0 left-0 right-0 z-10 flex items-center rounded-b-lg shadow-sm bg-slate-50 text-slate-700 min-h-14">
             <RouterLink :to="{name:'home'}" class="z-10 flex items-center ">
                 <v-icon class="ml-1" name="md-keyboardarrowleft-round" color="#1b98ff" scale="2"  />
@@ -10,8 +10,8 @@
             </div>
         </div>
         <section class="flex flex-col items-center">
-            <ul class="flex flex-col w-full h-[85vh] font-poppins overflow-auto scroll-smooth pt-2 pb-2">
-                 <li :class="{'self-start p-2 ml-2 rounded-tl-2xl rounded-tr-2xl rounded-bl-sm rounded-br-2xl bg-white shadow-sm max-w-[85%] mb-2 mt-2 text-left animate-fade-right': msg.senderName !== UseUserValues().getUserName, 'self-end max-w-[85%] p-2 mr-2 text-white rounded-tl-2xl rounded-tr-2xl rounded-bl-2xl rounded-br-sm bg-sky-600 text-left mb-2 animate-fade-up': msg.senderName === UseUserValues().getUserName}" v-for="(msg, id) in messages" :key="id" :title="msg.senderName"> {{ msg.message }}</li>
+            <ul class="flex flex-col w-full h-[85vh] font-poppins overflow-auto scroll-smooth pt-2 pb-10">
+                 <li :class="{'self-start p-2 ml-2 rounded-tl-2xl rounded-tr-2xl rounded-bl-sm rounded-br-2xl bg-white shadow-sm max-w-[85%] mb-2 mt-2 text-left animate-fade-right': msg.senderName !== UseUserValues().getUserName, 'self-end max-w-[85%] p-2 mr-2 text-white rounded-tl-2xl rounded-tr-2xl rounded-bl-2xl rounded-br-sm bg-sky-600  text-left mb-2 animate-fade-up': msg.senderName === UseUserValues().getUserName}" v-for="(msg, id) in messages" :key="id" :title="msg.senderName"> {{ msg.message }}</li>
             </ul>
             <div class="box-border fixed flex items-center justify-around w-full p-1 bg-slate-200 bottom-1">
                 <!-- <input @keypress.enter="sendMessage" v-model="message" class="w-9/12 p-3 text-lg text-left bg-red-500 rounded-full shadow-lg outline-none h font font-poppins" type="text" placeholder="Message"> -->

@@ -36,14 +36,6 @@ const routes: Array<RouteRecordRaw> = [
     }
   },
   {
-    path: '/:pathMatch(.*)*', 
-    name: 'NotFound',
-    component: ()=> import(/* webpackChunkName: "NotFound" */ '../views/Error/404View.vue'),
-    meta: {
-      requiresAuth: false
-    }
-  },
-  {
     path: '/forgot-password',
     name: 'forgotPassword',
     component: () => import(/* webpackChunkName: "forgotPassword" */ '../views/Login/ForgotPasswordView.vue'),
@@ -56,6 +48,23 @@ const routes: Array<RouteRecordRaw> = [
     name:'chat',
     component: () => import(/* webpackChunkName: "chat" */ '../views/chats/CurrentChatView.vue'),
   },
+  {
+    path:'/addContact',
+    name:'addContact',
+    component: () => import(/* webpackChunkName: "addContact" */ '../views/contacts/AddContactView.vue'),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/:pathMatch(.*)*', 
+    name: 'NotFound',
+    component: ()=> import(/* webpackChunkName: "NotFound" */ '../views/Error/404View.vue'),
+    meta: {
+      requiresAuth: false
+    },
+  },
+
   // tempfirestore 
   {
     path: '/tempfirestore',
@@ -63,7 +72,6 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import(/* webpackChunkName: "tempfirestore" */ '../views/temp/TempFirestore.vue')
   }
 ]
- 
 
 const router = createRouter({
   history: createWebHashHistory(process.env.BASE_URL),

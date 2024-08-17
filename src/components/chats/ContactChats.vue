@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full pb-5 bg-white">
+    <div class="w-full pb-5 bg-white min-h-dvh">
         <div class="flex flex-col items-center w-full gap-1">
             <div class="relative flex items-center justify-center w-full px-2">
                 <div class="flex justify-between w-full ml-4">
@@ -22,7 +22,7 @@
                     <v-icon name="md-search-sharp" scale="1.5" />
                     <input v-model="searchName" type="text"
                         class="w-full text-lg bg-transparent border-none outline-none placeholder:text-slate-800"
-                        placeholder="Search contact">
+                        placeholder="Buscar Contacto">
                 </div>
                 <div class="relative flex">
                     <v-icon name="la-user-friends-solid" scale="1.8" color="#219AFF" />
@@ -42,6 +42,7 @@
             </Transition>
         </div>
     </div>
+
 </template>
 
 <script lang="ts" setup>
@@ -51,6 +52,7 @@ import { onMounted, onUnmounted, Ref, ref } from 'vue';
 import { collection, getDocs, getFirestore, query, where, onSnapshot } from 'firebase/firestore';
 import { UseUserValues } from '@/store/UserValuesStore';
 import Imessage from '@/interfaces/contactsChats/Imessage';
+import BottomBar from './BottomBar.vue';
 const users: Ref<Array<Imessage>> = ref([
 ]);
 

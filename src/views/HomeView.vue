@@ -5,6 +5,9 @@
       <div class="self-start w-full animate-fade-right animate-duration-500">
         <ContactChats />
       </div>
+      <section class="fixed bottom-0 w-full">
+        <BottomBar />
+    </section>
     </div>
 </template>
 
@@ -16,6 +19,7 @@ import { signOut, getAuth } from 'firebase/auth';
 import { UseUserValues } from '@/store/UserValuesStore';
 import { useRouter } from 'vue-router';
 import ContactChats from '@/components/chats/ContactChats.vue';
+import BottomBar from '@/components/chats/BottomBar.vue';
 
 const btnActionPropsLogout:IButtonAction = reactive({  btnMsg:'Logout'}) //// button login values (color text message etc)
 

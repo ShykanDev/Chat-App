@@ -59,6 +59,22 @@ const routes: Array<RouteRecordRaw> = [
       requiresAuth: true
     }
   },
+  { 
+    path: '/friendRequests',
+    name: 'friendRequests',
+    component: () => import(/* webpackChunkName: "friendRequests" */ '../views/contacts/FriendRequestsView.vue'),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/settings',
+    name: 'settings',
+    component: () => import(/* webpackChunkName: "settings" */ '../views/settings/UserSettingsView.vue'),
+    meta: {
+      requiresAuth: true
+    }
+  },
   {
     path: '/:pathMatch(.*)*', 
     name: 'NotFound',

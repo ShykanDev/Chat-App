@@ -10,11 +10,11 @@
                     <v-icon scale="1.5" name="fa-user-plus" color="#1b98ff" />
                     <small>Añadir</small>
                 </RouterLink>
-                <RouterLink :class="{'text-sky-500 bg-opacity-100 animate-jump animate-duration-[400ms] animate-ease-in-out': $route.name === 'asd' }"  class="flex flex-col items-center pt-1 font-medium font-poppins min-w-16 min-h-16 rounded-3xl" :to="{name:''}">
+                <RouterLink :class="{'text-sky-500 bg-opacity-100 animate-jump animate-duration-[400ms] animate-ease-in-out': $route.name === 'friendRequests' }"  class="flex flex-col items-center pt-1 font-medium bg-white bg-opacity-0 font-poppins min-w-16 min-h-16 rounded-3xl" :to="{name:'friendRequests'}">
                     <v-icon scale="1.7" name="la-user-friends-solid" color="#1b98ff" />
                     <small>Solicitudes</small>
                 </RouterLink>
-                <RouterLink :class="{'text-sky-500 bg-opacity-100 animate-jump animate-duration-[400ms] animate-ease-in-out': $route.name === 'asd' }"  class="flex flex-col items-center pt-1 font-medium font-poppins min-w-16 min-h-16 rounded-3xl" :to="{name:''}">
+                <RouterLink :class="{'text-sky-500 bg-opacity-100 animate-jump animate-duration-[400ms] animate-ease-in-out': $route.name === 'settings' }"  class="flex flex-col items-center pt-1 font-medium bg-white bg-opacity-0 font-poppins min-w-16 min-h-16 rounded-3xl" :to="{name:'settings'}">
                     <v-icon scale="1.5" name="md-settings-round" color="#1b98ff" />
                     <small>Ajustes</small>
                 </RouterLink>
@@ -28,9 +28,6 @@ import { ref } from 'vue';
 import { RouterLink, useRoute } from 'vue-router';
 
 // watching the changes of the current view (router)
-const router = useRoute();
-
-const currentView = ref(router.name);
 
 </script>
 

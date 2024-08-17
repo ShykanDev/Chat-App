@@ -47,6 +47,9 @@ const routes: Array<RouteRecordRaw> = [
     path:'/chat/:recipientName',
     name:'chat',
     component: () => import(/* webpackChunkName: "chat" */ '../views/chats/CurrentChatView.vue'),
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path:'/addContact',

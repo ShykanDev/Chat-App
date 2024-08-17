@@ -74,7 +74,7 @@ const loginEmail = async () => {// login function that will be called when the u
                 router.push({name:'home'});
                 userValuesStore.setUserUid(userCredential.user.uid);
                 console.log(userCredential); 
-                if (UseUserValues().getIsAuth) { // adding the current name to store
+                if (UseUserValues().getIsAuth) { // adding the current name to store 
                     const q_getName = query(usersCollections, where('email', '==', auth.currentUser?.email));
                     const nameSnaphot = await getDocs(q_getName);
                     console.log(nameSnaphot.docs[0].data())

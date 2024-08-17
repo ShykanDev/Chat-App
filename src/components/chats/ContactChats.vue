@@ -4,14 +4,16 @@
             <div class="relative flex items-center justify-center w-full px-2">
                 <div class="flex justify-between w-full ml-4">
                     <h2 class="self-start mt-3 mb-2 text-2xl font-medium text-slate-800 font-poppins">Chats</h2>
-                    <h2 class="self-start mt-3 mb-2 text-basfont-medium text-slate-800 font-poppins animate-fade-down">Hi, {{ UseUserValues().getUserName }}!</h2>
+                    <h2 class="self-start mt-3 mb-2 text-basfont-medium text-slate-800 font-poppins animate-fade-down">
+                        Hi, {{ UseUserValues().getUserName }}!</h2>
                 </div>
             </div>
             <div class="flex items-center w-full justify-evenly animate-fade-right">
-                    <RouterLink :to="{name:'addContact'}">
-                        <v-icon name="fa-user-plus" scale="1.8" color="#219AFF" />
-                    </RouterLink>
-                <div class="w-[60%] flex items-center gap-2 p-1 mb-1 text-black rounded-full shadow-md h-11 font-poppins">
+                <RouterLink :to="{name:'addContact'}">
+                    <v-icon name="fa-user-plus" scale="1.8" color="#219AFF" />
+                </RouterLink>
+                <div
+                    class="w-[60%] flex items-center gap-2 p-1 mb-1 text-black rounded-full shadow-md h-11 font-poppins">
                     <v-icon name="md-search-sharp" scale="1.5" />
                     <input v-model="searchName" type="text"
                         class="w-full text-lg bg-transparent border-none outline-none placeholder:text-slate-800"
@@ -19,17 +21,19 @@
                 </div>
                 <div class="relative flex">
                     <v-icon name="la-user-friends-solid" scale="1.8" color="#219AFF" />
-                    <div class="absolute top-0 right-0 flex items-center justify-center w-4 h-4 text-white rounded-lg bg-sky-800">1</div>
+                    <div
+                        class="absolute top-0 right-0 flex items-center justify-center w-4 h-4 text-white rounded-lg bg-sky-800">
+                        1</div>
                 </div>
             </div>
-            <Transition>
-                <div v-if="users.length > 0" class="flex flex-col items-center w-full gap-2 my-2 animate-fade-right">
-                    <RouterLink class="w-full" :to="{name:'chat', params:{ recipientName:user.contactName }}"
+            <!-- <Transition> -->
+                <div v-if="users" class="flex flex-col items-center w-full gap-2 my-2 animate-fade-right">
+                    <RouterLink class="w-full" :to="{ name: 'chat', params: { recipientName: user.contactName } }" 
                         v-for="user in users" :key="user.contactChatId">
                         <ChatCard class="w-full" :name="user.contactName" :message="user.message" />
                     </RouterLink>
                 </div>
-            </Transition>
+            <!-- </Transition> -->
         </div>
     </div>
 </template>

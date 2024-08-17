@@ -7,7 +7,6 @@ export const UseUserValues = defineStore('UserStore',{
             userUid:'',
             userName:'',
             userEmail:'',
-            
         }
     },
     getters:{

@@ -93,12 +93,11 @@ const handleNewUser = async () => {
     const q_getContactValues = query(usersCollection, where('contactCode', '==', contactCode.value));
     const contactValues = (await getDocs(q_getContactValues)).docs[0];
 
-    // --Verifying if contact values exist based on the query 
+    // --Verifying if contact values exist based on the query and add them to variables (recipientName, contactId);
+
     if (contactValues && contactValues.exists()) {
       recipientName.value = contactValues.data().name;
       contactId.value = contactValues.data().id;
-      console.log('contactId', contactId.value);
-      console.log('contactName', recipientName.value);
     } else if (!contactValues) {
       incorrectUserData.value = true;
       msgError.value = `User with Id '${contactCode.value}' does not exist`;
@@ -141,6 +140,7 @@ const handleNewUser = async () => {
       contactCode: contactCode.value,
       timestamp: Timestamp.now(),
     })
+    router.push({ name: 'chat', params: { recipientName: recipientName.value } });
   } catch (error) {
     console.log('Error while adding contact: ' + error);
   }
